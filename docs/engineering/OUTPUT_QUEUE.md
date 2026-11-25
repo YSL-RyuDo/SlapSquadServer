@@ -58,13 +58,13 @@ Six deterministic tests exercise forced partial writes, four concurrent producer
 
 Disconnect discards queued messages and is not a graceful delivery guarantee. Enqueue success means acceptance into the queue, not receipt by the peer. Remaining work includes server-wide shutdown, consistent synchronization of legacy session lookups and room pointer lifetimes, purchase persistence, and authoritative hit validation. The measurements below retain the earlier room-fan-out revision so the two changes can be evaluated separately.
 
-[12-run raw data and build provenance](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e), [SocketOutput.cpp](https://github.com/YSL-RyuDo/BnBServer/blob/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e/TeamOFYServer/SocketOutput.cpp)
+[12-run raw data and build provenance](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e), [SocketOutput.cpp](https://github.com/YSL-RyuDo/SlapSquadServer/blob/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e/TeamOFYServer/SocketOutput.cpp)
 
 ## Output queue design and reproduction
 
 ```powershell
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 737a92c397adb4320cf439d99d148362ce1ca090 --out .bench-work/before --port 39091
 python tools/benchmark/build.py --ref 9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e --out .bench-work/after --port 39092

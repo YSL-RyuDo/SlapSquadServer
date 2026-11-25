@@ -2,7 +2,7 @@
 
 [English](STATE_SAFETY.md), [한국어](STATE_SAFETY.ko.md), [日本語](STATE_SAFETY.ja.md)
 
-2026-10-21, [8a6245d](https://github.com/YSL-RyuDo/BnBServer/tree/8a6245d1a58fdbed77fc62b48eb6984a3af7f017) → [3e3dcef](https://github.com/YSL-RyuDo/BnBServer/tree/3e3dcef826fa09c4349038ca0b81ccc97f2c63a6)
+2026-10-21, [8a6245d](https://github.com/YSL-RyuDo/SlapSquadServer/tree/8a6245d1a58fdbed77fc62b48eb6984a3af7f017) → [3e3dcef](https://github.com/YSL-RyuDo/SlapSquadServer/tree/3e3dcef826fa09c4349038ca0b81ccc97f2c63a6)
 
 32クライアントの同時購入で保存競合を再現しました。4種類のアイテム保存が同じtemp.csvを使い、別の要求の一時ファイルを上書き、削除していました。CSV形式を維持し、残高と所持情報を1回の購入単位で保存するように変更しました。
 
@@ -44,7 +44,7 @@ p95の中央値は3条件とも増加しました。64接続ではCPUの中央�
 
 前回のp95増加は条件ごとに3回測定した結果であり、原因を特定するものではありません。32接続でサーバー側TCP_NODELAYだけを変更した別実験では改善を示せませんでした。最初の非同期送信を受信スレッドから直接開始する案も、CPUコストが増えたため採用していません。最終版はIOCPバッチ送信を維持します。以下では各回と中央値を示し、変動をサーバー内部処理時間と断定しません。
 
-[30 runs and build manifests](measurements/2026-10-21-state), [source diff](https://github.com/YSL-RyuDo/BnBServer/compare/8a6245d1a58fdbed77fc62b48eb6984a3af7f017...3e3dcef826fa09c4349038ca0b81ccc97f2c63a6), [Windows CI](https://github.com/YSL-RyuDo/BnBServer/actions/workflows/socket-regression.yml)
+[30 runs and build manifests](measurements/2026-10-21-state), [source diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/8a6245d1a58fdbed77fc62b48eb6984a3af7f017...3e3dcef826fa09c4349038ca0b81ccc97f2c63a6), [Windows CI](https://github.com/YSL-RyuDo/SlapSquadServer/actions/workflows/socket-regression.yml)
 
 ## Reproduce
 

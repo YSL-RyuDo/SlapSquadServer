@@ -58,13 +58,13 @@ QUIT는 수신 루프에 정리를 맡기고, SocketOutput이 shutdown, writer �
 
 연결 종료 시 대기 메시지를 폐기하므로 정상적인 전송 완료를 보장하는 종료 방식은 아닙니다. 큐 삽입 성공도 상대의 수신 완료를 뜻하지 않습니다. 서버 전체 종료, 기존 세션 조회와 방 포인터 수명의 일관된 동기화, 구매 저장, 서버의 명중 검증은 추가 작업입니다. 아래 방별 전달 측정은 앞선 수정 버전의 결과를 그대로 남겨 두 변경을 각각 확인할 수 있게 했습니다.
 
-[12회 원자료와 빌드 근거](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e), [SocketOutput.cpp](https://github.com/YSL-RyuDo/BnBServer/blob/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e/TeamOFYServer/SocketOutput.cpp)
+[12회 원자료와 빌드 근거](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e), [SocketOutput.cpp](https://github.com/YSL-RyuDo/SlapSquadServer/blob/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e/TeamOFYServer/SocketOutput.cpp)
 
 ## 송신 큐 설계와 재현 방법
 
 ```powershell
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 737a92c397adb4320cf439d99d148362ce1ca090 --out .bench-work/before --port 39091
 python tools/benchmark/build.py --ref 9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e --out .bench-work/after --port 39092

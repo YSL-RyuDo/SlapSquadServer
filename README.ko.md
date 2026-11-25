@@ -1,4 +1,4 @@
-# Slap Squad / C++ Server
+# Slap Squad Server
 
 [![English](https://ysl-ryudo.github.io/assets/diagrams/language-en.svg)](README.md) [![한국어](https://ysl-ryudo.github.io/assets/diagrams/language-ko-current.svg)](README.ko.md) [![日本語](https://ysl-ryudo.github.io/assets/diagrams/language-ja.svg)](README.ja.md)
 
@@ -8,7 +8,7 @@
 
 C++ 서버와 Unity 무기 동작을 구현하고 이동, 물풍선 상호작용, 경기 결과와 구매 응답을 연결했습니다.
 
-[Portfolio](https://ysl-ryudo.github.io/ko/work/bnb/), [전체 기술 문서](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.ko.md), [Unity](https://github.com/YSL-RyuDo/BNB), [C++ server](https://github.com/YSL-RyuDo/BnBServer)
+[Portfolio](https://ysl-ryudo.github.io/ko/work/bnb/), [전체 기술 문서](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.ko.md), [Unity](https://github.com/YSL-RyuDo/SlapSquad), [C++ server](https://github.com/YSL-RyuDo/SlapSquadServer)
 
 [![Slap Squad, four-player gameplay](https://ysl-ryudo.github.io/assets/evidence/slap-four-balloons.webp)](https://ysl-ryudo.github.io/ko/work/bnb/#gameplay)
 
@@ -18,7 +18,7 @@ C++ 서버와 Unity 무기 동작을 구현하고 이동, 물풍선 상호작용
 
 p95 중앙값은 세 조건 모두 늘었습니다. 64개 연결에서는 CPU 중앙값이 9.22%에서 7.65%로 줄었고, 8개와 32개에서는 늘었습니다. 스레드는 13, 37, 69개로 같았습니다. 기대한 전달 624,000건은 모두 도착했고 다른 방 전달과 중복은 없었습니다. 저장과 방 상태의 오류를 고친 결과이며, 전반적인 지연 개선을 입증한 결과는 아닙니다.
 
-[코드와 측정 원자료](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/STATE_SAFETY.ko.md)
+[코드와 측정 원자료](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/STATE_SAFETY.ko.md)
 
 ## 느린 수신자 격리를 유지하면서 송신 스레드 비용 줄이기
 
@@ -36,7 +36,7 @@ GetAttackByIndex는 HIT마다 CharStat.csv를 열고 파싱했습니다. 서버�
 
 실제 UserManager 코드에서 조회 10만 회를 버전별 5회씩 번갈아 실행했고 결과 체크섬은 모두 같았습니다. 파일 캐시가 준비된 조건이며 초기 로딩은 제외했습니다. 소요 시간 중앙값은 9044.14 ms → 0.2805 ms였습니다. 반복적인 파일 열기와 파싱을 작은 메모리 맵 조회와 비교한 결과입니다. 게임 전체나 서버 처리량이 같은 비율로 빨라졌다고 해석할 수 없습니다.
 
-[구현과 재현 방법](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/IOCP.ko.md), [측정 원자료](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [코드 점검과 남은 작업](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.ko.md)
+[구현과 재현 방법](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/IOCP.ko.md), [측정 원자료](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [코드 점검과 남은 작업](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.ko.md)
 
 
 ## 앞선 수정: 느린 수신자의 영향 분리
@@ -53,7 +53,7 @@ GetAttackByIndex는 HIT마다 CharStat.csv를 열고 파싱했습니다. 서버�
 | 정상 조건, 회차별 p95의 중앙값 | 14.00 ms | 13.62 ms |
 | 관찰한 최대 스레드, 연결 8개 | 12 | 20 |
 
-[송신 큐 설계와 재현 방법](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/OUTPUT_QUEUE.ko.md), [12회 원자료와 빌드 근거](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
+[송신 큐 설계와 재현 방법](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/OUTPUT_QUEUE.ko.md), [12회 원자료와 빌드 근거](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
 
 
 ## 구현과 검증
@@ -75,7 +75,7 @@ GetAttackByIndex는 HIT마다 CharStat.csv를 열고 파싱했습니다. 서버�
 
 각 실행에서 계산한 값의 3회 중앙값입니다. CPU 100%는 논리 코어 하나입니다. 누락과 다른 방 전달은 수정 버전 3회 합계입니다.
 
-[원자료와 측정 환경](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21), [소스 변경](https://github.com/YSL-RyuDo/BnBServer/commit/737a92c397adb4320cf439d99d148362ce1ca090), [실험 재현](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.ko.md#reproduction)
+[원자료와 측정 환경](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21), [소스 변경](https://github.com/YSL-RyuDo/SlapSquadServer/commit/737a92c397adb4320cf439d99d148362ce1ca090), [실험 재현](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.ko.md#reproduction)
 
 ![UML](https://ysl-ryudo.github.io/assets/slap-squad/server-classes-ko.svg)
 
@@ -88,38 +88,38 @@ C++ 서버와 Unity 무기 7종을 구현하고 이동, 물풍선과 맵 상호�
 
 Arrow, Laser, Mace, Melody, Pitchfork, Spell, Sword의 동작을 구현했습니다. WeaponSystem에서 장착 무기 선택과 생성, 쿨다운과 소리를 연결했습니다. 서버의 패킷 처리 외에 실제 전투 행동을 만드는 클라이언트 작업입니다.
 
-[WeaponSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/WeaponSystem.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Arrow.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Arrow.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Sword.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Sword.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[WeaponSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/WeaponSystem.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Arrow.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Arrow.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Sword.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Sword.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### 플레이어 조작과 공격 시점
 
 이동 동기화와 무기 공격, 물풍선 배치 사이의 입력 전환을 작업했습니다. Update에서 입력을 읽고 FixedUpdate에서 Rigidbody를 이동합니다. 공격 요청에는 무기와 위치 및 방향을 넣고, 레이저는 맵 장애물을 검사한 거리도 함께 보냅니다.
 
-[LocalPlayerController.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/LocalPlayerController.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[LocalPlayerController.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/LocalPlayerController.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### 물풍선과 파괴 가능한 맵
 
 물풍선 배치와 쿨다운, 겹치는 배치 검사와 물줄기 전파, 맵과 블록 갱신을 작업했습니다. 서버는 룸 리더 모델에 맞춰 월드 갱신을 전달합니다.
 
-[BalloonSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/BalloonSystem.cs), [내 변경 95b28f2](https://github.com/YSL-RyuDo/BNB/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5), [MapSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/MapSystem.cs), [내 변경 95b28f2](https://github.com/YSL-RyuDo/BNB/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5)
+[BalloonSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/BalloonSystem.cs), [내 변경 95b28f2](https://github.com/YSL-RyuDo/SlapSquad/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5), [MapSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/MapSystem.cs), [내 변경 95b28f2](https://github.com/YSL-RyuDo/SlapSquad/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5)
 
 ### 방 준비와 씬 전환
 
 캐릭터 선택과 팀 구성, 방장의 시작 요청을 게임 진입에 연결했습니다. NetworkConnector에서 전환 전후의 캐릭터 선택과 경기 관련 씬 이동, 캐시 상태를 다뤘습니다.
 
-[RoomSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Room/RoomSystem.cs), [내 변경 be42bb9](https://github.com/YSL-RyuDo/BNB/commit/be42bb99ced515ad702e9a15e9d95bd5e029839c), [NetworkConnector.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Network/NetworkConnector.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[RoomSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Room/RoomSystem.cs), [내 변경 be42bb9](https://github.com/YSL-RyuDo/SlapSquad/commit/be42bb99ced515ad702e9a15e9d95bd5e029839c), [NetworkConnector.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Network/NetworkConnector.cs), [내 변경 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### 경기 결과, 보상과 감정 표현
 
 GameSystem의 플레이어 생성과 피격, 사망, 승자와 보상 처리, 복귀 준비 흐름을 작업했습니다. 감정 표현의 요청과 표시, 쿨다운도 구현했습니다. 결과 데이터를 별도 화면에만 두지 않고 플레이 종료와 다음 흐름에 연결했습니다.
 
-[GameSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/GameSystem.cs), [내 변경 eb6a766](https://github.com/YSL-RyuDo/BNB/commit/eb6a7660b4f690e0d46a7a3e75c50c744d40f745), [EmoticonSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/EmoticonSystem.cs), [내 변경 576f512](https://github.com/YSL-RyuDo/BNB/commit/576f51272b078731e71e882afce04ce8ae164ac3)
+[GameSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/GameSystem.cs), [내 변경 eb6a766](https://github.com/YSL-RyuDo/SlapSquad/commit/eb6a7660b4f690e0d46a7a3e75c50c744d40f745), [EmoticonSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/EmoticonSystem.cs), [내 변경 576f512](https://github.com/YSL-RyuDo/SlapSquad/commit/576f51272b078731e71e882afce04ce8ae164ac3)
 
 ### 계정, 경제와 구매 결과 표시
 
 CSV 저장을 사용하는 서버의 계정, 방, 상점과 프로필 처리를 구현했습니다. 공동 ShopUI에서는 구매 직후 소유를 확정하던 처리를 제거하고 반환 데이터에 따라 해당 탭을 갱신하도록 수정했습니다. 아이템 가격에 대한 고민은 별도의 CNN 시뮬레이션 연구로 이어졌습니다.
 
-[Server.cpp (main)](https://github.com/YSL-RyuDo/BnBServer/blob/d2a360c07276ec057a92d1361e8ff84de743520c/TeamOFYServer/Server.cpp), [내 변경 e41da66](https://github.com/YSL-RyuDo/BnBServer/commit/e41da66566252a105da68d98087198e632c0e9b7), [ShopUI.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Shop/ShopUI.cs), [내 변경 57cedd2](https://github.com/YSL-RyuDo/BNB/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
+[Server.cpp (main)](https://github.com/YSL-RyuDo/SlapSquadServer/blob/d2a360c07276ec057a92d1361e8ff84de743520c/TeamOFYServer/Server.cpp), [내 변경 e41da66](https://github.com/YSL-RyuDo/SlapSquadServer/commit/e41da66566252a105da68d98087198e632c0e9b7), [ShopUI.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Shop/ShopUI.cs), [내 변경 57cedd2](https://github.com/YSL-RyuDo/SlapSquad/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
 
 
 
-[CSV 저장과 구매 결과 표시](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.ko.md), [게임플레이 영상과 스크린샷](https://ysl-ryudo.github.io/ko/work/bnb/#more-demos)
+[CSV 저장과 구매 결과 표시](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.ko.md), [게임플레이 영상과 스크린샷](https://ysl-ryudo.github.io/ko/work/bnb/#more-demos)

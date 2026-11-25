@@ -58,13 +58,13 @@ QUITは受信ループに後処理を任せ、SocketOutputがshutdown、writer�
 
 切断時は待機メッセージを破棄するため、正常な配信完了を保証する終了処理ではありません。キューへの追加成功も相手の受信完了を意味しません。サーバー全体の終了、既存セッション検索とルームポインタ寿命の一貫した同期、購入の永続化、サーバーでの命中検証は今後の課題です。下の配信範囲の測定は前段階の結果を保持し、2つの変更を別々に評価できるようにしています。
 
-[12回の生データとビルド根拠](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e), [SocketOutput.cpp](https://github.com/YSL-RyuDo/BnBServer/blob/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e/TeamOFYServer/SocketOutput.cpp)
+[12回の生データとビルド根拠](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e), [SocketOutput.cpp](https://github.com/YSL-RyuDo/SlapSquadServer/blob/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e/TeamOFYServer/SocketOutput.cpp)
 
 ## 送信キューの設計と再現方法
 
 ```powershell
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 737a92c397adb4320cf439d99d148362ce1ca090 --out .bench-work/before --port 39091
 python tools/benchmark/build.py --ref 9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e --out .bench-work/after --port 39092

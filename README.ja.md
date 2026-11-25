@@ -1,4 +1,4 @@
-# Slap Squad / C++ Server
+# Slap Squad Server
 
 [![English](https://ysl-ryudo.github.io/assets/diagrams/language-en.svg)](README.md) [![한국어](https://ysl-ryudo.github.io/assets/diagrams/language-ko.svg)](README.ko.md) [![日本語](https://ysl-ryudo.github.io/assets/diagrams/language-ja-current.svg)](README.ja.md)
 
@@ -8,7 +8,7 @@
 
 C++サーバーとUnityの武器動作を実装し、移動、水風船の相互作用、試合結果、購入応答を連携させました。
 
-[Portfolio](https://ysl-ryudo.github.io/ja/work/bnb/), [技術ドキュメント全文](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.ja.md), [Unity](https://github.com/YSL-RyuDo/BNB), [C++ server](https://github.com/YSL-RyuDo/BnBServer)
+[Portfolio](https://ysl-ryudo.github.io/ja/work/bnb/), [技術ドキュメント全文](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.ja.md), [Unity](https://github.com/YSL-RyuDo/SlapSquad), [C++ server](https://github.com/YSL-RyuDo/SlapSquadServer)
 
 [![Slap Squad, four-player gameplay](https://ysl-ryudo.github.io/assets/evidence/slap-four-balloons.webp)](https://ysl-ryudo.github.io/ja/work/bnb/#gameplay)
 
@@ -18,7 +18,7 @@ C++サーバーとUnityの武器動作を実装し、移動、水風船の相互
 
 p95の中央値は3条件とも増加しました。64接続ではCPUの中央値が9.22%から7.65%に低下しましたが、8接続と32接続では増加しました。スレッド数は13、37、69のままです。期待した624,000件をすべて受信し、別ルームへの配信と重複はありませんでした。状態の整合性を修正した結果であり、全般的な遅延改善を示すものではありません。
 
-[コードと測定データ](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/STATE_SAFETY.ja.md)
+[コードと測定データ](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/STATE_SAFETY.ja.md)
 
 ## 遅い受信者の分離を維持しながら送信スレッドを削減
 
@@ -36,7 +36,7 @@ GetAttackByIndexはHITごとにCharStat.csvを開いて解析していました�
 
 実際のUserManagerコードで10万回の参照を各版5回交互に実行し、全チェックサムが一致しました。ファイルキャッシュが温まった条件で、初期読み込みは除外しています。所要時間の中央値は9044.14 ms → 0.2805 msでした。ファイルの反復オープンと解析を小さなメモリマップ参照と比較したマイクロベンチマークで、ゲームやサーバー全体の同率の高速化を意味しません。
 
-[実装と再現方法](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/IOCP.ja.md), [測定原資料](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [コード点検と残る作業](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.ja.md)
+[実装と再現方法](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/IOCP.ja.md), [測定原資料](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [コード点検と残る作業](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.ja.md)
 
 
 ## 以前の修正: 遅い受信者の影響を分離
@@ -53,7 +53,7 @@ GetAttackByIndexはHITごとにCharStat.csvを開いて解析していました�
 | 通常条件、各回p95の中央値 | 14.00 ms | 13.62 ms |
 | 観測した最大スレッド数、8接続 | 12 | 20 |
 
-[送信キューの設計と再現方法](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/OUTPUT_QUEUE.ja.md), [12回の生データとビルド根拠](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
+[送信キューの設計と再現方法](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/OUTPUT_QUEUE.ja.md), [12回の生データとビルド根拠](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
 
 
 ## 実装と検証
@@ -75,7 +75,7 @@ GetAttackByIndexはHITごとにCharStat.csvを開いて解析していました�
 
 各回で算出した値の3回の中央値。CPUの100%は論理コア1つです。未着と他ルームへの配信は修正版3回の合計です。
 
-[生データと測定環境](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21), [ソース変更](https://github.com/YSL-RyuDo/BnBServer/commit/737a92c397adb4320cf439d99d148362ce1ca090), [実験の再現](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.ja.md#reproduction)
+[生データと測定環境](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21), [ソース変更](https://github.com/YSL-RyuDo/SlapSquadServer/commit/737a92c397adb4320cf439d99d148362ce1ca090), [実験の再現](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.ja.md#reproduction)
 
 ![UML](https://ysl-ryudo.github.io/assets/slap-squad/server-classes-ja.svg)
 
@@ -88,38 +88,38 @@ C++サーバーとUnityの7種の武器を実装し、移動、水風船とマ�
 
 Arrow、Laser、Mace、Melody、Pitchfork、Spell、Swordの動作を実装しました。WeaponSystemで装備選択、生成、クールダウン、音を接続しました。通信処理に加えて、実際の戦闘行動を作るクライアント実装です。
 
-[WeaponSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/WeaponSystem.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Arrow.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Arrow.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Sword.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Sword.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[WeaponSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/WeaponSystem.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Arrow.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Arrow.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Sword.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Sword.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### 操作と攻撃タイミング
 
 移動同期と武器攻撃・水風船設置の入力切替を担当しました。Updateで入力を読み、FixedUpdateでRigidbodyを移動します。攻撃要求に武器・位置・向きを渡し、レーザーにはマップ障害物から求めた距離も含めます。
 
-[LocalPlayerController.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/LocalPlayerController.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[LocalPlayerController.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/LocalPlayerController.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### 水風船と破壊可能なマップ
 
 水風船設置、クールダウン、重複設置確認、水の伝播、マップとブロック更新を担当しました。サーバーはルームリーダーモデルでワールド更新を中継します。
 
-[BalloonSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/BalloonSystem.cs), [担当変更 95b28f2](https://github.com/YSL-RyuDo/BNB/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5), [MapSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/MapSystem.cs), [担当変更 95b28f2](https://github.com/YSL-RyuDo/BNB/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5)
+[BalloonSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/BalloonSystem.cs), [担当変更 95b28f2](https://github.com/YSL-RyuDo/SlapSquad/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5), [MapSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/MapSystem.cs), [担当変更 95b28f2](https://github.com/YSL-RyuDo/SlapSquad/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5)
 
 ### ルーム準備とシーン遷移
 
 キャラクター選択、チーム編成、ホストの開始要求を試合へ接続しました。NetworkConnectorで遷移前後の選択、試合シーン移動、キャッシュ状態を扱いました。
 
-[RoomSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Room/RoomSystem.cs), [担当変更 be42bb9](https://github.com/YSL-RyuDo/BNB/commit/be42bb99ced515ad702e9a15e9d95bd5e029839c), [NetworkConnector.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Network/NetworkConnector.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[RoomSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Room/RoomSystem.cs), [担当変更 be42bb9](https://github.com/YSL-RyuDo/SlapSquad/commit/be42bb99ced515ad702e9a15e9d95bd5e029839c), [NetworkConnector.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Network/NetworkConnector.cs), [担当変更 c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### 試合結果、報酬とエモート
 
 GameSystemのプレイヤー生成・被弾・死亡・勝者・報酬、復帰準備を担当しました。エモートの要求・表示・クールダウンも実装しました。結果データを単独画面で終わらせず、プレイ終了と次の流れにつなぎました。
 
-[GameSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/GameSystem.cs), [担当変更 eb6a766](https://github.com/YSL-RyuDo/BNB/commit/eb6a7660b4f690e0d46a7a3e75c50c744d40f745), [EmoticonSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/EmoticonSystem.cs), [担当変更 576f512](https://github.com/YSL-RyuDo/BNB/commit/576f51272b078731e71e882afce04ce8ae164ac3)
+[GameSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/GameSystem.cs), [担当変更 eb6a766](https://github.com/YSL-RyuDo/SlapSquad/commit/eb6a7660b4f690e0d46a7a3e75c50c744d40f745), [EmoticonSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/EmoticonSystem.cs), [担当変更 576f512](https://github.com/YSL-RyuDo/SlapSquad/commit/576f51272b078731e71e882afce04ce8ae164ac3)
 
 ### アカウント、経済と購入結果
 
 CSV保存を使うサーバーのアカウント、ルーム、ショップ、プロフィール処理を実装しました。共同ShopUIでは購入直後の所有確定を除き、返却データで該当タブを更新しました。価格設計の問いは別のCNNシミュレーション研究へ発展しました。
 
-[Server.cpp (main)](https://github.com/YSL-RyuDo/BnBServer/blob/d2a360c07276ec057a92d1361e8ff84de743520c/TeamOFYServer/Server.cpp), [担当変更 e41da66](https://github.com/YSL-RyuDo/BnBServer/commit/e41da66566252a105da68d98087198e632c0e9b7), [ShopUI.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Shop/ShopUI.cs), [担当変更 57cedd2](https://github.com/YSL-RyuDo/BNB/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
+[Server.cpp (main)](https://github.com/YSL-RyuDo/SlapSquadServer/blob/d2a360c07276ec057a92d1361e8ff84de743520c/TeamOFYServer/Server.cpp), [担当変更 e41da66](https://github.com/YSL-RyuDo/SlapSquadServer/commit/e41da66566252a105da68d98087198e632c0e9b7), [ShopUI.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Shop/ShopUI.cs), [担当変更 57cedd2](https://github.com/YSL-RyuDo/SlapSquad/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
 
 
 
-[CSV保存と購入結果の表示](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.ja.md), [ゲームプレイ動画とスクリーンショット](https://ysl-ryudo.github.io/ja/work/bnb/#more-demos)
+[CSV保存と購入結果の表示](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.ja.md), [ゲームプレイ動画とスクリーンショット](https://ysl-ryudo.github.io/ja/work/bnb/#more-demos)

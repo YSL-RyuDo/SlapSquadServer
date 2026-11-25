@@ -2,7 +2,7 @@
 
 [English](STATE_SAFETY.md), [한국어](STATE_SAFETY.ko.md), [日本語](STATE_SAFETY.ja.md)
 
-2026-10-21, [8a6245d](https://github.com/YSL-RyuDo/BnBServer/tree/8a6245d1a58fdbed77fc62b48eb6984a3af7f017) → [3e3dcef](https://github.com/YSL-RyuDo/BnBServer/tree/3e3dcef826fa09c4349038ca0b81ccc97f2c63a6)
+2026-10-21, [8a6245d](https://github.com/YSL-RyuDo/SlapSquadServer/tree/8a6245d1a58fdbed77fc62b48eb6984a3af7f017) → [3e3dcef](https://github.com/YSL-RyuDo/SlapSquadServer/tree/3e3dcef826fa09c4349038ca0b81ccc97f2c63a6)
 
 32개 클라이언트의 동시 구매에서 저장 충돌을 재현했습니다. 네 종류의 아이템 저장 함수가 모두 temp.csv를 사용해 다른 요청의 임시 파일을 덮어쓰거나 삭제했습니다. 기존 CSV 형식을 유지하면서 재화 차감과 보유 목록을 한 번의 구매 단위로 저장하도록 고쳤습니다.
 
@@ -44,7 +44,7 @@ p95 중앙값은 세 조건 모두 늘었습니다. 64개 연결에서는 CPU �
 
 앞선 p95 증가는 조건별 3회 측정에서 관찰된 값으로, 그것만으로 원인을 특정할 수는 없습니다. 32개 연결에서 서버 TCP_NODELAY만 바꾼 별도 실험은 개선을 입증하지 못했습니다. 첫 비동기 송신을 수신 스레드에서 바로 시작하는 시도는 워커 전달 한 단계를 줄였지만 CPU 비용이 증가해 제외했습니다. 최종 버전은 IOCP 배치 송신을 유지합니다. 아래에는 모든 회차와 중앙값을 함께 제시하며, 측정 변동을 서버 내부 처리 시간으로 단정하지 않습니다.
 
-[30 runs and build manifests](measurements/2026-10-21-state), [source diff](https://github.com/YSL-RyuDo/BnBServer/compare/8a6245d1a58fdbed77fc62b48eb6984a3af7f017...3e3dcef826fa09c4349038ca0b81ccc97f2c63a6), [Windows CI](https://github.com/YSL-RyuDo/BnBServer/actions/workflows/socket-regression.yml)
+[30 runs and build manifests](measurements/2026-10-21-state), [source diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/8a6245d1a58fdbed77fc62b48eb6984a3af7f017...3e3dcef826fa09c4349038ca0b81ccc97f2c63a6), [Windows CI](https://github.com/YSL-RyuDo/SlapSquadServer/actions/workflows/socket-regression.yml)
 
 ## Reproduce
 

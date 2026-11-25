@@ -2,7 +2,7 @@
 
 [English](STATE_SAFETY.md), [한국어](STATE_SAFETY.ko.md), [日本語](STATE_SAFETY.ja.md)
 
-2026-10-21, [8a6245d](https://github.com/YSL-RyuDo/BnBServer/tree/8a6245d1a58fdbed77fc62b48eb6984a3af7f017) → [3e3dcef](https://github.com/YSL-RyuDo/BnBServer/tree/3e3dcef826fa09c4349038ca0b81ccc97f2c63a6)
+2026-10-21, [8a6245d](https://github.com/YSL-RyuDo/SlapSquadServer/tree/8a6245d1a58fdbed77fc62b48eb6984a3af7f017) → [3e3dcef](https://github.com/YSL-RyuDo/SlapSquadServer/tree/3e3dcef826fa09c4349038ca0b81ccc97f2c63a6)
 
 A 32-client purchase test exposed a persistence failure: all four item categories wrote through the same temp.csv. Different requests could replace or remove one another’s temporary file. The follow-up change keeps CSV storage but commits a purchase’s balance and ownership together.
 
@@ -44,7 +44,7 @@ The median p95 increased at all three loads. At 64 connections, median CPU fell 
 
 The earlier p95 increase came from three runs per condition and does not identify a cause. A separate 32-client diagnostic changed only server TCP_NODELAY; it did not demonstrate an improvement. Starting the first overlapped send on the receive thread reduced one worker handoff but increased CPU in the pilot, so it was discarded. The final implementation retains IOCP batching. The retest below reports every run and the median rather than attributing all variation to the server.
 
-[30 runs and build manifests](measurements/2026-10-21-state), [source diff](https://github.com/YSL-RyuDo/BnBServer/compare/8a6245d1a58fdbed77fc62b48eb6984a3af7f017...3e3dcef826fa09c4349038ca0b81ccc97f2c63a6), [Windows CI](https://github.com/YSL-RyuDo/BnBServer/actions/workflows/socket-regression.yml)
+[30 runs and build manifests](measurements/2026-10-21-state), [source diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/8a6245d1a58fdbed77fc62b48eb6984a3af7f017...3e3dcef826fa09c4349038ca0b81ccc97f2c63a6), [Windows CI](https://github.com/YSL-RyuDo/SlapSquadServer/actions/workflows/socket-regression.yml)
 
 ## Reproduce
 

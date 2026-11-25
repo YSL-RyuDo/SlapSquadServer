@@ -14,7 +14,7 @@ A 32-client purchase test exposed a persistence failure: all four item categorie
 
 The median p95 increased at all three loads. At 64 connections, median CPU fell from 9.22% to 7.65%; at 8 and 32 it increased. Thread counts stayed at 13, 37 and 69. All 624,000 expected deliveries arrived with no cross-room delivery or duplication. This change fixes state correctness; it does not establish a general latency improvement.
 
-[Code and test data](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/STATE_SAFETY.md)
+[Code and test data](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/STATE_SAFETY.md)
 
 ## Reducing output-thread cost without losing slow-reader isolation
 
@@ -32,7 +32,7 @@ GetAttackByIndex reopened and parsed CharStat.csv for every HIT. The server now 
 
 Actual UserManager code, 100,000 lookups, five alternating runs per variant, matching checksums. Warm filesystem cache; initial loading is excluded. Median elapsed time: 9044.14 ms → 0.2805 ms. This isolates file-open/parsing work versus a tiny hot map. It must not be presented as an equivalent speedup in the game or server throughput.
 
-[Implementation and reproduction](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/IOCP.md), [Raw measurements](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Code audit and remaining work](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.md)
+[Implementation and reproduction](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/IOCP.md), [Raw measurements](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Code audit and remaining work](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.md)
 
 
 ## Earlier fix: isolating a stalled reader
@@ -49,7 +49,7 @@ With a stopped reader in another room: 0/300 responses before, 300/300 after in 
 | Quiet, median run p95 | 14.00 ms | 13.62 ms |
 | Observed peak threads, 8 connections | 12 | 20 |
 
-[Output queue design and reproduction](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/OUTPUT_QUEUE.md), [12-run raw data and build provenance](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
+[Output queue design and reproduction](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/OUTPUT_QUEUE.md), [12-run raw data and build provenance](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
 
 
 ## The server and its shared state
@@ -137,25 +137,25 @@ The user-state mutex serializes account writes, and each transaction snapshots t
 
 ## From implementation to a pricing question
 
-Deciding prices for this game motivated my separate CNN consumption-pattern simulation. I presented the research at I2P-CON, then refined it for the CISC-W 2025 poster. The CNN study is not deployed inference in this game server.
+Deciding prices for this game motivated my separate CNN consumption-pattern simulation. I presented the research at I2P CON, then refined it for the CISC W 2025 poster. The CNN study is not deployed inference in this game server.
 
 ## Source, test data and reproduction
 
-[Original 304b11b](https://github.com/YSL-RyuDo/BnBServer/tree/304b11b3c2bbd81ea702910b299ff6535806e34a), [October fix 737a92c](https://github.com/YSL-RyuDo/BnBServer/commit/737a92c397adb4320cf439d99d148362ce1ca090)
+[Original 304b11b](https://github.com/YSL-RyuDo/SlapSquadServer/tree/304b11b3c2bbd81ea702910b299ff6535806e34a), [October fix 737a92c](https://github.com/YSL-RyuDo/SlapSquadServer/commit/737a92c397adb4320cf439d99d148362ce1ca090)
 
 [Raw measurements and environment](measurements/2026-10-21/manifest.json), [24 runs](measurements/2026-10-21/results.json), [SHA-256](measurements/2026-10-21/sha256.json)
 
 [Regression, original](measurements/2026-10-21/regression-baseline.json), [Regression, patched](measurements/2026-10-21/regression-candidate.json)
 
-[Unity contribution and gameplay](https://ysl-ryudo.github.io/en/work/bnb/#full-scope), [ShopUI change](https://github.com/YSL-RyuDo/BNB/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
+[Unity contribution and gameplay](https://ysl-ryudo.github.io/en/work/bnb/#full-scope), [ShopUI change](https://github.com/YSL-RyuDo/SlapSquad/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
 
 <a id="reproduction"></a>
 ## Reproduce the experiment
 
 ```powershell
 # Windows, Visual Studio 2022 Desktop development with C++, Python 3.10+
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 304b11b3c2bbd81ea702910b299ff6535806e34a --out .bench-work/baseline --port 39091
 python tools/benchmark/build.py --ref 737a92c397adb4320cf439d99d148362ce1ca090 --out .bench-work/candidate --port 39092

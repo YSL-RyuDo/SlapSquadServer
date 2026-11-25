@@ -14,7 +14,7 @@ C++ 서버와 Unity 무기 동작을 구현하고 이동, 물풍선 상호작용
 
 p95 중앙값은 세 조건 모두 늘었습니다. 64개 연결에서는 CPU 중앙값이 9.22%에서 7.65%로 줄었고, 8개와 32개에서는 늘었습니다. 스레드는 13, 37, 69개로 같았습니다. 기대한 전달 624,000건은 모두 도착했고 다른 방 전달과 중복은 없었습니다. 저장과 방 상태의 오류를 고친 결과이며, 전반적인 지연 개선을 입증한 결과는 아닙니다.
 
-[코드와 측정 원자료](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/STATE_SAFETY.ko.md)
+[코드와 측정 원자료](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/STATE_SAFETY.ko.md)
 
 ## 느린 수신자 격리를 유지하면서 송신 스레드 비용 줄이기
 
@@ -32,7 +32,7 @@ GetAttackByIndex는 HIT마다 CharStat.csv를 열고 파싱했습니다. 서버�
 
 실제 UserManager 코드에서 조회 10만 회를 버전별 5회씩 번갈아 실행했고 결과 체크섬은 모두 같았습니다. 파일 캐시가 준비된 조건이며 초기 로딩은 제외했습니다. 소요 시간 중앙값은 9044.14 ms → 0.2805 ms였습니다. 반복적인 파일 열기와 파싱을 작은 메모리 맵 조회와 비교한 결과입니다. 게임 전체나 서버 처리량이 같은 비율로 빨라졌다고 해석할 수 없습니다.
 
-[구현과 재현 방법](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/IOCP.ko.md), [측정 원자료](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [코드 점검과 남은 작업](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.ko.md)
+[구현과 재현 방법](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/IOCP.ko.md), [측정 원자료](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [코드 점검과 남은 작업](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.ko.md)
 
 
 ## 앞선 수정: 느린 수신자의 영향 분리
@@ -49,7 +49,7 @@ GetAttackByIndex는 HIT마다 CharStat.csv를 열고 파싱했습니다. 서버�
 | 정상 조건, 회차별 p95의 중앙값 | 14.00 ms | 13.62 ms |
 | 관찰한 최대 스레드, 연결 8개 | 12 | 20 |
 
-[송신 큐 설계와 재현 방법](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/OUTPUT_QUEUE.ko.md), [12회 원자료와 빌드 근거](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
+[송신 큐 설계와 재현 방법](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/OUTPUT_QUEUE.ko.md), [12회 원자료와 빌드 근거](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
 
 
 ## 서버 객체와 공유 상태
@@ -137,25 +137,25 @@ Unity 무기가 HIT에 무기, 공격자, 대상을 실어 보냅니다. ClientH
 
 ## 구현에서 가격정책 연구로
 
-이 게임의 아이템 가격을 고민하면서 별도의 CNN 소비 패턴 시뮬레이션 연구를 진행했습니다. I2P-CON에서 발표한 뒤 보완해 CISC-W 2025 포스터로 발표했습니다. CNN 추론을 이 게임 서버에 배포한 것은 아닙니다.
+이 게임의 아이템 가격을 고민하면서 별도의 CNN 소비 패턴 시뮬레이션 연구를 진행했습니다. I2P CON에서 발표한 뒤 보완해 CISC W 2025 포스터로 발표했습니다. CNN 추론을 이 게임 서버에 배포한 것은 아닙니다.
 
 ## 코드, 실험 데이터와 재현 방법
 
-[Original 304b11b](https://github.com/YSL-RyuDo/BnBServer/tree/304b11b3c2bbd81ea702910b299ff6535806e34a), [October fix 737a92c](https://github.com/YSL-RyuDo/BnBServer/commit/737a92c397adb4320cf439d99d148362ce1ca090)
+[Original 304b11b](https://github.com/YSL-RyuDo/SlapSquadServer/tree/304b11b3c2bbd81ea702910b299ff6535806e34a), [October fix 737a92c](https://github.com/YSL-RyuDo/SlapSquadServer/commit/737a92c397adb4320cf439d99d148362ce1ca090)
 
 [원자료와 측정 환경](measurements/2026-10-21/manifest.json), [24 runs](measurements/2026-10-21/results.json), [SHA-256](measurements/2026-10-21/sha256.json)
 
 [Regression, original](measurements/2026-10-21/regression-baseline.json), [Regression, patched](measurements/2026-10-21/regression-candidate.json)
 
-[Unity contribution and gameplay](https://ysl-ryudo.github.io/ko/work/bnb/#full-scope), [ShopUI change](https://github.com/YSL-RyuDo/BNB/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
+[Unity contribution and gameplay](https://ysl-ryudo.github.io/ko/work/bnb/#full-scope), [ShopUI change](https://github.com/YSL-RyuDo/SlapSquad/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
 
 <a id="reproduction"></a>
 ## 실험 재현
 
 ```powershell
 # Windows, Visual Studio 2022 Desktop development with C++, Python 3.10+
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 304b11b3c2bbd81ea702910b299ff6535806e34a --out .bench-work/baseline --port 39091
 python tools/benchmark/build.py --ref 737a92c397adb4320cf439d99d148362ce1ca090 --out .bench-work/candidate --port 39092

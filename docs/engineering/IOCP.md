@@ -40,15 +40,15 @@ Validation: 7 output unit checks, 8 socket framing/room checks, 5 connection-lif
 
 The three-run sample is too small to claim statistical significance. p95 increased in all three MOVE connection-count medians, while CPU and thread cost fell. Receive threads still scale with connections. The CSV persistence and room lifetime risks listed in the audit are not solved by IOCP.
 
-[Raw measurements](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e...8a6245d1a58fdbed77fc62b48eb6984a3af7f017), [Code audit and remaining work](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.md)
+[Raw measurements](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e...8a6245d1a58fdbed77fc62b48eb6984a3af7f017), [Code audit and remaining work](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.md)
 
 ## Implementation and reproduction
 
 Windows, Visual Studio 2022 C++ Desktop, MSVC v143, Release x64, Python 3.10+.
 
 ```powershell
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e --out .bench-work/before --port 39091
 python tools/benchmark/build.py --ref 8a6245d1a58fdbed77fc62b48eb6984a3af7f017 --out .bench-work/after --port 39092

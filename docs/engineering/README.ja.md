@@ -14,7 +14,7 @@ C++サーバーとUnityの武器動作を実装し、移動、水風船の相互
 
 p95の中央値は3条件とも増加しました。64接続ではCPUの中央値が9.22%から7.65%に低下しましたが、8接続と32接続では増加しました。スレッド数は13、37、69のままです。期待した624,000件をすべて受信し、別ルームへの配信と重複はありませんでした。状態の整合性を修正した結果であり、全般的な遅延改善を示すものではありません。
 
-[コードと測定データ](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/STATE_SAFETY.ja.md)
+[コードと測定データ](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/STATE_SAFETY.ja.md)
 
 ## 遅い受信者の分離を維持しながら送信スレッドを削減
 
@@ -32,7 +32,7 @@ GetAttackByIndexはHITごとにCharStat.csvを開いて解析していました�
 
 実際のUserManagerコードで10万回の参照を各版5回交互に実行し、全チェックサムが一致しました。ファイルキャッシュが温まった条件で、初期読み込みは除外しています。所要時間の中央値は9044.14 ms → 0.2805 msでした。ファイルの反復オープンと解析を小さなメモリマップ参照と比較したマイクロベンチマークで、ゲームやサーバー全体の同率の高速化を意味しません。
 
-[実装と再現方法](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/IOCP.ja.md), [測定原資料](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [コード点検と残る作業](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.ja.md)
+[実装と再現方法](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/IOCP.ja.md), [測定原資料](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [コード点検と残る作業](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.ja.md)
 
 
 ## 以前の修正: 遅い受信者の影響を分離
@@ -49,7 +49,7 @@ GetAttackByIndexはHITごとにCharStat.csvを開いて解析していました�
 | 通常条件、各回p95の中央値 | 14.00 ms | 13.62 ms |
 | 観測した最大スレッド数、8接続 | 12 | 20 |
 
-[送信キューの設計と再現方法](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/OUTPUT_QUEUE.ja.md), [12回の生データとビルド根拠](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
+[送信キューの設計と再現方法](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/OUTPUT_QUEUE.ja.md), [12回の生データとビルド根拠](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
 
 
 ## サーバーの所有関係と共有状態
@@ -137,25 +137,25 @@ Unityの武器はHITで武器、攻撃者、対象を報告します。ClientHan
 
 ## 実装から価格政策の研究へ
 
-このゲームのアイテム価格を考えたことから、別のCNN消費パターンシミュレーション研究を始めました。I2P-CONで発表した後に改良し、CISC-W 2025のポスターとして発表しました。CNN推論をこのゲームサーバーに組み込んだわけではありません。
+このゲームのアイテム価格を考えたことから、別のCNN消費パターンシミュレーション研究を始めました。I2P CONで発表した後に改良し、CISC W 2025のポスターとして発表しました。CNN推論をこのゲームサーバーに組み込んだわけではありません。
 
 ## コード、測定データ、再現方法
 
-[Original 304b11b](https://github.com/YSL-RyuDo/BnBServer/tree/304b11b3c2bbd81ea702910b299ff6535806e34a), [October fix 737a92c](https://github.com/YSL-RyuDo/BnBServer/commit/737a92c397adb4320cf439d99d148362ce1ca090)
+[Original 304b11b](https://github.com/YSL-RyuDo/SlapSquadServer/tree/304b11b3c2bbd81ea702910b299ff6535806e34a), [October fix 737a92c](https://github.com/YSL-RyuDo/SlapSquadServer/commit/737a92c397adb4320cf439d99d148362ce1ca090)
 
 [生データと測定環境](measurements/2026-10-21/manifest.json), [24 runs](measurements/2026-10-21/results.json), [SHA-256](measurements/2026-10-21/sha256.json)
 
 [Regression, original](measurements/2026-10-21/regression-baseline.json), [Regression, patched](measurements/2026-10-21/regression-candidate.json)
 
-[Unity contribution and gameplay](https://ysl-ryudo.github.io/ja/work/bnb/#full-scope), [ShopUI change](https://github.com/YSL-RyuDo/BNB/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
+[Unity contribution and gameplay](https://ysl-ryudo.github.io/ja/work/bnb/#full-scope), [ShopUI change](https://github.com/YSL-RyuDo/SlapSquad/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
 
 <a id="reproduction"></a>
 ## 実験の再現
 
 ```powershell
 # Windows, Visual Studio 2022 Desktop development with C++, Python 3.10+
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 304b11b3c2bbd81ea702910b299ff6535806e34a --out .bench-work/baseline --port 39091
 python tools/benchmark/build.py --ref 737a92c397adb4320cf439d99d148362ce1ca090 --out .bench-work/candidate --port 39092

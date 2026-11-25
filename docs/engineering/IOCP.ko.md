@@ -40,15 +40,15 @@ Unity 수신부는 Split 결과의 마지막 미완성 조각까지 처리하고
 
 3회 표본으로 통계적 유의성을 주장하지 않습니다. MOVE 측정에서는 세 연결 수 조건 모두 p95 중앙값이 늘었고 CPU와 스레드 비용은 줄었습니다. 수신 스레드는 여전히 연결 수에 비례합니다. CSV 저장과 방 객체 수명 문제는 IOCP 변경으로 해결되지 않으며 아래 점검 기록에 남겼습니다.
 
-[측정 원자료](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e...8a6245d1a58fdbed77fc62b48eb6984a3af7f017), [코드 점검과 남은 작업](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.ko.md)
+[측정 원자료](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e...8a6245d1a58fdbed77fc62b48eb6984a3af7f017), [코드 점검과 남은 작업](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.ko.md)
 
 ## 구현과 재현 방법
 
 Windows, Visual Studio 2022 C++ Desktop, MSVC v143, Release x64, Python 3.10+.
 
 ```powershell
-git clone https://github.com/YSL-RyuDo/BnBServer.git
-cd BnBServer
+git clone https://github.com/YSL-RyuDo/SlapSquadServer.git
+cd SlapSquadServer
 python -m pip install -r tools/benchmark/requirements.txt
 python tools/benchmark/build.py --ref 9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e --out .bench-work/before --port 39091
 python tools/benchmark/build.py --ref 8a6245d1a58fdbed77fc62b48eb6984a3af7f017 --out .bench-work/after --port 39092

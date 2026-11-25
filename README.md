@@ -1,4 +1,4 @@
-# Slap Squad / C++ Server
+# Slap Squad Server
 
 [![English](https://ysl-ryudo.github.io/assets/diagrams/language-en-current.svg)](README.md) [![한국어](https://ysl-ryudo.github.io/assets/diagrams/language-ko.svg)](README.ko.md) [![日本語](https://ysl-ryudo.github.io/assets/diagrams/language-ja.svg)](README.ja.md)
 
@@ -8,7 +8,7 @@ March 2025 to February 2026, 2 programmers and 6 graphics team members
 
 I implemented the C++ server and Unity weapon behaviors, and connected movement, balloon interactions, match results and purchase feedback.
 
-[Portfolio](https://ysl-ryudo.github.io/en/work/bnb/), [Full engineering notes](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.md), [Unity](https://github.com/YSL-RyuDo/BNB), [C++ server](https://github.com/YSL-RyuDo/BnBServer)
+[Portfolio](https://ysl-ryudo.github.io/en/work/bnb/), [Full engineering notes](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.md), [Unity](https://github.com/YSL-RyuDo/SlapSquad), [C++ server](https://github.com/YSL-RyuDo/SlapSquadServer)
 
 [![Slap Squad, four-player gameplay](https://ysl-ryudo.github.io/assets/evidence/slap-four-balloons.webp)](https://ysl-ryudo.github.io/en/work/bnb/#gameplay)
 
@@ -18,7 +18,7 @@ A 32-client purchase test exposed a persistence failure: all four item categorie
 
 The median p95 increased at all three loads. At 64 connections, median CPU fell from 9.22% to 7.65%; at 8 and 32 it increased. Thread counts stayed at 13, 37 and 69. All 624,000 expected deliveries arrived with no cross-room delivery or duplication. This change fixes state correctness; it does not establish a general latency improvement.
 
-[Code and test data](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/STATE_SAFETY.md)
+[Code and test data](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/STATE_SAFETY.md)
 
 ## Reducing output-thread cost without losing slow-reader isolation
 
@@ -36,7 +36,7 @@ GetAttackByIndex reopened and parsed CharStat.csv for every HIT. The server now 
 
 Actual UserManager code, 100,000 lookups, five alternating runs per variant, matching checksums. Warm filesystem cache; initial loading is excluded. Median elapsed time: 9044.14 ms → 0.2805 ms. This isolates file-open/parsing work versus a tiny hot map. It must not be presented as an equivalent speedup in the game or server throughput.
 
-[Implementation and reproduction](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/IOCP.md), [Raw measurements](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Code audit and remaining work](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/AUDIT.md)
+[Implementation and reproduction](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/IOCP.md), [Raw measurements](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-iocp), [Code audit and remaining work](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/AUDIT.md)
 
 
 ## Earlier fix: isolating a stalled reader
@@ -53,7 +53,7 @@ With a stopped reader in another room: 0/300 responses before, 300/300 after in 
 | Quiet, median run p95 | 14.00 ms | 13.62 ms |
 | Observed peak threads, 8 connections | 12 | 20 |
 
-[Output queue design and reproduction](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/OUTPUT_QUEUE.md), [12-run raw data and build provenance](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/BnBServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
+[Output queue design and reproduction](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/OUTPUT_QUEUE.md), [12-run raw data and build provenance](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21-output-queue), [Git diff](https://github.com/YSL-RyuDo/SlapSquadServer/compare/737a92c397adb4320cf439d99d148362ce1ca090...9e9110727ff5fa8c4cd016f9a55efe4aa93ecc4e)
 
 
 ## Engineering evidence
@@ -75,7 +75,7 @@ Latency is measured from immediately before the sender writes a request until an
 
 Median of three per-run values. CPU: 100% equals one logical core. Missing and cross-room counts are totals across all three patched runs.
 
-[Raw measurements and environment](https://github.com/YSL-RyuDo/BnBServer/tree/main/docs/engineering/measurements/2026-10-21), [Source change](https://github.com/YSL-RyuDo/BnBServer/commit/737a92c397adb4320cf439d99d148362ce1ca090), [Reproduce the experiment](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.md#reproduction)
+[Raw measurements and environment](https://github.com/YSL-RyuDo/SlapSquadServer/tree/main/docs/engineering/measurements/2026-10-21), [Source change](https://github.com/YSL-RyuDo/SlapSquadServer/commit/737a92c397adb4320cf439d99d148362ce1ca090), [Reproduce the experiment](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.md#reproduction)
 
 ![UML](https://ysl-ryudo.github.io/assets/slap-squad/server-classes-en.svg)
 
@@ -88,38 +88,38 @@ I built the C++ server and seven Unity weapon behaviors, and worked on movement,
 
 Implemented Arrow, Laser, Mace, Melody, Pitchfork, Spell and Sword behaviors. WeaponSystem connects equipped weapon selection, spawning, cooldown and sound. This is gameplay implementation beyond the server's packet handling.
 
-[WeaponSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/WeaponSystem.cs), [My change c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Arrow.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Arrow.cs), [My change c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Sword.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Sword.cs), [My change c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[WeaponSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/WeaponSystem.cs), [My change c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Arrow.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Arrow.cs), [My change c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf), [Sword.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/Weapon/Sword.cs), [My change c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### Player control and attack timing
 
 Worked on movement synchronization and switching between weapon attacks and balloon placement. Input is sampled in Update and Rigidbody movement runs in FixedUpdate. Attack requests carry the selected weapon and attack transform; laser requests also include a distance calculated against map obstacles.
 
-[LocalPlayerController.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/LocalPlayerController.cs), [My change c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[LocalPlayerController.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/LocalPlayerController.cs), [My change c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### Balloon and destructible-map interaction
 
 Worked on balloon placement, cooldowns, overlapping placement checks and water propagation, together with map and block updates. The server relays world updates under the room-leader model.
 
-[BalloonSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/BalloonSystem.cs), [My change 95b28f2](https://github.com/YSL-RyuDo/BNB/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5), [MapSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/MapSystem.cs), [My change 95b28f2](https://github.com/YSL-RyuDo/BNB/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5)
+[BalloonSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/BalloonSystem.cs), [My change 95b28f2](https://github.com/YSL-RyuDo/SlapSquad/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5), [MapSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/MapSystem.cs), [My change 95b28f2](https://github.com/YSL-RyuDo/SlapSquad/commit/95b28f22b7e88ed2c801e6d47a61ca573bcbc8a5)
 
 ### Room setup and scene transitions
 
 Connected character choice, team setup and host-controlled starts to gameplay. NetworkConnector preserves character selection across transitions and handles match-related scene routing and cached state.
 
-[RoomSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Room/RoomSystem.cs), [My change be42bb9](https://github.com/YSL-RyuDo/BNB/commit/be42bb99ced515ad702e9a15e9d95bd5e029839c), [NetworkConnector.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Network/NetworkConnector.cs), [My change c79844d](https://github.com/YSL-RyuDo/BNB/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
+[RoomSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Room/RoomSystem.cs), [My change be42bb9](https://github.com/YSL-RyuDo/SlapSquad/commit/be42bb99ced515ad702e9a15e9d95bd5e029839c), [NetworkConnector.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Network/NetworkConnector.cs), [My change c79844d](https://github.com/YSL-RyuDo/SlapSquad/commit/c79844d425e5c81e1c9549885e29deeeb66515cf)
 
 ### Match results, rewards and expression
 
 Worked on player spawning, damage/death, winner and reward processing, and the ready-to-return flow in GameSystem. Implemented the emote request/display path and its cooldown. Result data is part of the play loop, not just a disconnected result screen.
 
-[GameSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/GameSystem.cs), [My change eb6a766](https://github.com/YSL-RyuDo/BNB/commit/eb6a7660b4f690e0d46a7a3e75c50c744d40f745), [EmoticonSystem.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/EmoticonSystem.cs), [My change 576f512](https://github.com/YSL-RyuDo/BNB/commit/576f51272b078731e71e882afce04ce8ae164ac3)
+[GameSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/GameSystem.cs), [My change eb6a766](https://github.com/YSL-RyuDo/SlapSquad/commit/eb6a7660b4f690e0d46a7a3e75c50c744d40f745), [EmoticonSystem.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Game/EmoticonSystem.cs), [My change 576f512](https://github.com/YSL-RyuDo/SlapSquad/commit/576f51272b078731e71e882afce04ce8ae164ac3)
 
 ### Account, economy and purchase feedback
 
 Implemented server account, room, shop and profile processing with CSV persistence. In the shared ShopUI I removed premature ownership confirmation and refreshed the relevant item tab from returned data. The item-pricing question also led to the separate CNN simulation study.
 
-[Server.cpp (main)](https://github.com/YSL-RyuDo/BnBServer/blob/d2a360c07276ec057a92d1361e8ff84de743520c/TeamOFYServer/Server.cpp), [My change e41da66](https://github.com/YSL-RyuDo/BnBServer/commit/e41da66566252a105da68d98087198e632c0e9b7), [ShopUI.cs (main)](https://github.com/YSL-RyuDo/BNB/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Shop/ShopUI.cs), [My change 57cedd2](https://github.com/YSL-RyuDo/BNB/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
+[Server.cpp (main)](https://github.com/YSL-RyuDo/SlapSquadServer/blob/d2a360c07276ec057a92d1361e8ff84de743520c/TeamOFYServer/Server.cpp), [My change e41da66](https://github.com/YSL-RyuDo/SlapSquadServer/commit/e41da66566252a105da68d98087198e632c0e9b7), [ShopUI.cs (main)](https://github.com/YSL-RyuDo/SlapSquad/blob/8a3defa6001cf741eceb322f11d7c8c6f7dd9bd7/Assets/Script/Shop/ShopUI.cs), [My change 57cedd2](https://github.com/YSL-RyuDo/SlapSquad/commit/57cedd2e5c3b0dbbb7ea51b336602cc339630cea)
 
 
 
-[CSV persistence and confirmed purchase feedback](https://github.com/YSL-RyuDo/BnBServer/blob/main/docs/engineering/README.md), [Gameplay recordings and screenshots](https://ysl-ryudo.github.io/en/work/bnb/#more-demos)
+[CSV persistence and confirmed purchase feedback](https://github.com/YSL-RyuDo/SlapSquadServer/blob/main/docs/engineering/README.md), [Gameplay recordings and screenshots](https://ysl-ryudo.github.io/en/work/bnb/#more-demos)
